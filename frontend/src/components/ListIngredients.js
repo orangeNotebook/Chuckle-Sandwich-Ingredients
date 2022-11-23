@@ -28,19 +28,29 @@ function ListIngredients() {
       {!gotData ? (
         getIngredients()
       ) : (
-        <>
+        <ul className="ingredients">
           {returnedData.map((ingredient) => {
             return (
-              <div>
-                <h2>Ingredient {ingredient.ID}</h2>
+              <li className="ingredient-container">
                 <img src={ingredient.Img} className="image"></img>
-                <p>{ingredient.Name}</p>
-                <p>{ingredient.Person}</p>
+                {ingredient.Person[ingredient.Person.length - 1] === "s" ? (
+                  <div className="info-container">
+                    <h1 className="name">{ingredient.Person}'</h1>
+                    <h1 className="ingredient-name">{ingredient.Name}</h1>
+                  </div>
+                ) : (
+                  <div className="info-container">
+                    <h1 className="name">{ingredient.Person}'s</h1>
+                    <h1 className="ingredient-name">{ingredient.Name}</h1>
+                  </div>
+                )}
                 <br></br>
-              </div>
+              </li>
             );
           })}
-        </>
+
+          <h1 className="instruction-text">Hover to reveal the ingredients</h1>
+        </ul>
       )}
     </div>
   );

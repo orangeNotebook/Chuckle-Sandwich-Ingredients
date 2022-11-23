@@ -1,0 +1,8 @@
+# .gitignore
+node_modules
+.env
+DigiCertGlobalRootCA.crt.pem
+static
+asset-manifest.json
+index.html
+**.png

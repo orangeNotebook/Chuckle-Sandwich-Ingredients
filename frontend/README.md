@@ -1,9 +1,3 @@
-# MHRA PARD Web Portal
-
-## What is it?
-
-A React web application.
-
 ## How to run it
 
 You will have to run and build the frontend first.

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ListIngredients from "./components/ListIngredients";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./styles/styles.css";
+import ShowSandwich from "./components/ShowSandwich";
 
 function App() {
   const [returnedData, setReturnedData] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
-
+  const [sandwichClicked, setSandwichClicked] = useState(false);
   let navigate = useNavigate();
 
   //choose the screen size
@@ -33,19 +34,45 @@ function App() {
     handleResize();
   });
 
-  return (
-    <div className="App">
-      <Grid container spacing={2}>
-        <Grid item xs></Grid>
-        <Grid item xs={7}>
-          <Header />
-          <ListIngredients />
-          <Footer />
+  function handleClick() {
+    setSandwichClicked(true);
+  }
+
+  function handleCloseSandwich() {
+    setSandwichClicked(false);
+  }
+
+  if (isMobile) {
+    return (
+      <div className="App">
+        <Header handleLogoClick={handleCloseSandwich} />
+        {sandwichClicked ? (
+          <ListIngredients handleCloseSandwich={handleCloseSandwich} />
+        ) : (
+          <ShowSandwich handleClick={handleClick} />
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <Grid container spacing={2}>
+          <Grid item xs></Grid>
+          <Grid item xs={3}>
+            <Header handleLogoClick={handleCloseSandwich} />
+            {sandwichClicked ? (
+              <ListIngredients handleCloseSandwich={handleCloseSandwich} />
+            ) : (
+              <ShowSandwich handleClick={handleClick} />
+            )}
+
+            <Footer />
+          </Grid>
+          <Grid item xs></Grid>
         </Grid>
-        <Grid item xs></Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;

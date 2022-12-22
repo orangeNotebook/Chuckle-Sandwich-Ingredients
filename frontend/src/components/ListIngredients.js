@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/styles.css";
+import { Button } from "@mui/material";
 
-function ListIngredients() {
+function ListIngredients(props) {
   const [returnedData, setReturnedData] = useState("");
   const [gotData, setGotData] = useState(false);
 
@@ -31,25 +32,33 @@ function ListIngredients() {
         <ul className="ingredients">
           {returnedData.map((ingredient) => {
             return (
-              <li className="ingredient-container">
-                <img src={ingredient.Img} className="image"></img>
-                {ingredient.Person[ingredient.Person.length - 1] === "s" ? (
-                  <div className="info-container">
-                    <h1 className="name">{ingredient.Person}'</h1>
-                    <h1 className="ingredient-name">{ingredient.Name}</h1>
-                  </div>
-                ) : (
-                  <div className="info-container">
-                    <h1 className="name">{ingredient.Person}'s</h1>
-                    <h1 className="ingredient-name">{ingredient.Name}</h1>
-                  </div>
-                )}
+              <div>
+                <li className="ingredient-container">
+                  {ingredient.Person[ingredient.Person.length - 1] === "s" ? (
+                    <div className="info-container">
+                      <h1 className="name">{ingredient.Person}'</h1>
+                      <h1 className="ingredient-name">{ingredient.Name}</h1>
+                    </div>
+                  ) : (
+                    <div className="info-container">
+                      <h1 className="name">{ingredient.Person}'s</h1>
+                      <h1 className="ingredient-name">{ingredient.Name}</h1>
+                    </div>
+                  )}
+                  <img src={ingredient.Img} className="image"></img>
+                </li>
                 <br></br>
-              </li>
+              </div>
             );
           })}
 
-          <h1 className="instruction-text">Hover to reveal the ingredients</h1>
+          <Button
+            className="name"
+            sx={{ fontSize: "30px", color: "#be483e", margin: "60px" }}
+            onClick={props.handleCloseSandwich}
+          >
+            Close sandwich
+          </Button>
         </ul>
       )}
     </div>
